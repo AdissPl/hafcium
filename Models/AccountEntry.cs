@@ -2,11 +2,9 @@ using System.Text.Json.Serialization;
 
 namespace Hafcium.Models
 {
-    /// <summary>
     /// Reprezentuje pojedynczy wpis konta (serwis + login + hasło + notatka).
     /// Klasa stosuje enkapsulację — pola prywatne z publicznymi właściwościami,
     /// dzięki czemu walidacja danych odbywa się w jednym miejscu (SRP).
-    /// </summary>
     public class AccountEntry
     {
         // ── Prywatne pola ──────────────────────────────────────────────
@@ -17,11 +15,11 @@ namespace Hafcium.Models
 
         // ── Właściwości publiczne z walidacją ──────────────────────────
 
-        /// <summary>Unikalne ID wpisu generowane automatycznie przy tworzeniu.</summary>
+        /// Unikalne ID wpisu generowane automatycznie przy tworzeniu.
         [JsonInclude]
         public Guid Id { get; private set; } = Guid.NewGuid();
 
-        /// <summary>Nazwa serwisu, np. "GitHub", "Gmail".</summary>
+        /// Nazwa serwisu, np. "GitHub", "Gmail".
         public string ServiceName
         {
             get => _serviceName;
@@ -29,7 +27,7 @@ namespace Hafcium.Models
                    ?? throw new ArgumentNullException(nameof(value), "Nazwa serwisu nie może być null.");
         }
 
-        /// <summary>Login lub adres e-mail powiązany z kontem.</summary>
+        /// Login lub adres e-mail powiązany z kontem.
         public string Login
         {
             get => _login;
@@ -37,7 +35,7 @@ namespace Hafcium.Models
                    ?? throw new ArgumentNullException(nameof(value), "Login nie może być null.");
         }
 
-        /// <summary>Hasło — może być wstawione ręcznie lub z generatora.</summary>
+        /// Hasło — może być wstawione ręcznie lub z generatora.
         public string Password
         {
             get => _password;
@@ -45,27 +43,23 @@ namespace Hafcium.Models
                    ?? throw new ArgumentNullException(nameof(value), "Hasło nie może być null.");
         }
 
-        /// <summary>Opcjonalna notatka użytkownika dotycząca konta.</summary>
+        /// Opcjonalna notatka użytkownika dotycząca konta.
         public string Note
         {
             get => _note;
             set => _note = value ?? string.Empty;
         }
 
-        /// <summary>Data utworzenia wpisu — ustawiana raz w konstruktorze.</summary>
+        /// Data utworzenia wpisu — ustawiana raz w konstruktorze.
         [JsonInclude]
         public DateTime CreatedAt { get; private set; } = DateTime.Now;
 
         // ── Konstruktory ───────────────────────────────────────────────
 
-        /// <summary>
         /// Konstruktor bezparametrowy wymagany przez serializer JSON.
-        /// </summary>
         public AccountEntry() { }
 
-        /// <summary>
         /// Tworzy nowy wpis konta z pełnymi danymi.
-        /// </summary>
         public AccountEntry(string serviceName, string login, string password, string note = "")
         {
             ServiceName = serviceName;
@@ -76,7 +70,7 @@ namespace Hafcium.Models
 
         // ── Nadpisanie ToString dla czytelnego debugowania ─────────────
 
-        /// <summary>Zwraca skrótowy opis wpisu (bez hasła, dla bezpieczeństwa).</summary>
+        /// Zwraca skrótowy opis wpisu (bez hasła, dla bezpieczeństwa).
         public override string ToString()
             => $"[{ServiceName}] {Login} (utworzono: {CreatedAt:yyyy-MM-dd})";
     }
