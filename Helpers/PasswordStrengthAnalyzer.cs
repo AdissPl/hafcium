@@ -1,9 +1,7 @@
 namespace Hafcium.Helpers
 {
-    /// <summary>
     /// Poziomy siły hasła — enum wykorzystywany w UI do kolorowania
     /// wskaźnika siły (polimorfizm zachowań na podstawie wartości enum).
-    /// </summary>
     public enum PasswordStrength
     {
         VeryWeak,
@@ -13,17 +11,13 @@ namespace Hafcium.Helpers
         VeryStrong
     }
 
-    /// <summary>
     /// Analizuje siłę hasła na podstawie jego długości i różnorodności znaków.
     /// Klasa statyczna — nie przechowuje stanu, pełni rolę czystej funkcji (utility).
     /// Dodana jako funkcjonalność 'od siebie" wykraczająca poza wymagania zadania.
-    /// </summary>
     public static class PasswordStrengthAnalyzer
     {
-        /// <summary>
         /// Ocenia siłę hasła w skali od VeryWeak do VeryStrong.
         /// Algorytm punktowy: każdy spełniony warunek dodaje punkty.
-        /// </summary>
         public static PasswordStrength Analyze(string password)
         {
             if (string.IsNullOrEmpty(password))
@@ -54,9 +48,7 @@ namespace Hafcium.Helpers
             };
         }
 
-        /// <summary>
         /// Zwraca kolor odpowiadający sile hasła (do użycia w ProgressBar/Label).
-        /// </summary>
         public static Color GetStrengthColor(PasswordStrength strength) => strength switch
         {
             PasswordStrength.VeryWeak  => Color.FromArgb(220, 53, 69),    // czerwony
@@ -67,9 +59,7 @@ namespace Hafcium.Helpers
             _ => Color.Gray
         };
 
-        /// <summary>
         /// Zwraca opis siły hasła po polsku — wyświetlany obok wskaźnika.
-        /// </summary>
         public static string GetStrengthLabel(PasswordStrength strength) => strength switch
         {
             PasswordStrength.VeryWeak  => "Bardzo słabe",
@@ -80,9 +70,7 @@ namespace Hafcium.Helpers
             _ => "Nieznane"
         };
 
-        /// <summary>
         /// Zwraca wartość procentową do ProgressBar (0–100).
-        /// </summary>
         public static int GetStrengthPercent(PasswordStrength strength) => strength switch
         {
             PasswordStrength.VeryWeak  => 15,
