@@ -67,17 +67,6 @@ namespace Hafcium
                 BackColor = Color.Transparent
             };
 
-            // ── Kontrybucja ─────────────────────────────────────────────
-            _lblCont = new Label
-            {
-                Text = "Stwórcą oraz właścicielem projektu jest Adrian Zieliński",
-                Font = new Font("Segoe UI", 7),
-                ForeColor = Color.FromArgb(205, 214, 244),
-                AutoSize = true,
-                Location = new Point(30, 250),
-                BackColor = Color.Transparent
-            };
-
             // ── Pole hasła ─────────────────────────────────────────────
             _txtPassword = new TextBox
             {
