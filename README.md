@@ -23,42 +23,16 @@ Semestr III, Informatyka
 - 🔒 Szyfrowanie bazy danych algorytmem **AES-256-CBC** z kluczem derywowanym przez PBKDF2
 - 💾 Pełną pracę offline — brak wymaganego połączenia z internetem ani zewnętrznych baz danych
 
-Nazwa „Hafcium" nawiązuje do pierwiastka chemicznego **Hf (Hafn)** — twardego, odpornego i stabilnego, podobnie jak hasła generowane przez tę aplikację.
-
----
-
-## ⚡ Szybki start
+Nazwa „Hafcium" nawiązuje do pierwiastka chemicznego **Hf (Hafn)** — twardego, odpornego i stabilnego, podobnie jak hasła generowane przez tę aplikację!
 
 ### Wymagania
 
 - **System:** Windows 10/11
 - **.NET SDK:** 8.0 lub nowszy ([pobierz tutaj](https://dotnet.microsoft.com/download/dotnet/8.0))
 
-### Kompilacja i uruchomienie
-
-```bash
-# Klonowanie repozytorium
-git clone https://github.com/adrianzielinski/Hafcium.git
-cd Hafcium
-
-# Kompilacja
-dotnet build --configuration Release
-
-# Uruchomienie
-dotnet run --configuration Release
-```
-
-Parametry kompilacji: `dotnet build -c Release -r win-x64 --self-contained false`
-
-Alternatywnie, aby opublikować jako samodzielny plik `.exe`:
-
-```bash
-dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o ./publish
-```
-
 ---
 
-## 🎯 Funkcjonalności (10 / 10+2 bonus)
+## 🎯 Funkcjonalności (12)
 
 | # | Funkcjonalność | Opis |
 |---|----------------|------|
@@ -72,8 +46,8 @@ dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=
 | 8 | **Usuwanie konta** | Przycisk 🗑 z dialogiem potwierdzenia — zabezpieczenie przed przypadkowym usunięciem. |
 | 9 | **Szyfrowanie AES-256-CBC** | Cała baza danych szyfrowana algorytmem AES-256 z kluczem derywowanym z hasła głównego przez PBKDF2 (100 000 iteracji, SHA-256). |
 | 10 | **Automatyczny zapis/odczyt** | Dane zapisywane do `passwords.dat` przy każdej zmianie. Automatyczne wczytywanie przy starcie. Zapis atomowy (plik tymczasowy + zamiana). |
-| 🌟 | **Wskaźnik siły hasła** *(bonus)* | Wizualny ProgressBar z oceną siły hasła (entropia bitowa + analiza różnorodności znaków). |
-| 🌟 | **Hasło główne z logowaniem** *(bonus)* | Ekran logowania przy starcie — tworzenie hasła głównego lub odblokowywanie istniejącej bazy. |
+| 11 | **Wskaźnik siły hasła** *(bonus)* | Wizualny ProgressBar z oceną siły hasła (entropia bitowa + analiza różnorodności znaków). |
+| 12 | **Hasło główne z logowaniem** *(bonus)* | Ekran logowania przy starcie — tworzenie hasła głównego lub odblokowywanie istniejącej bazy. |
 
 ---
 
