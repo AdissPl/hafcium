@@ -3,35 +3,28 @@ using System.Text;
 
 namespace Hafcium.Services
 {
-    /// <summary>
     /// Serwis szyfrowania AES-256-CBC odpowiadający wyłącznie za operacje
     /// kryptograficzne (SRP). Klucz szyfrowania generowany jest z hasła
     /// użytkownika za pomocą PBKDF2 (RFC 2898), co zapobiega atakom słownikowym.
-    /// </summary>
     public class EncryptionService
     {
         // ── Stałe kryptograficzne ──────────────────────────────────────
-        /// <summary>Liczba iteracji PBKDF2 — wyższe wartości spowalniają brute-force.</summary>
+        /// Liczba iteracji PBKDF2 — wyższe wartości spowalniają brute-force.
         private const int Iterations = 100_000;
 
-        /// <summary>Rozmiar klucza AES-256 w bajtach.</summary>
+        /// Rozmiar klucza AES-256 w bajtach.
         private const int KeySize = 32;
 
-        /// <summary>Rozmiar wektora inicjalizacyjnego (IV) dla AES-CBC.</summary>
+        /// Rozmiar wektora inicjalizacyjnego (IV) dla AES-CBC.
         private const int IvSize = 16;
 
-        /// <summary>Rozmiar soli — 16 bajtów wystarczających do unikalności.</summary>
+        /// Rozmiar soli — 16 bajtów wystarczających do unikalności.
         private const int SaltSize = 16;
 
-        /// <summary>
         /// Szyfruje dane tekstowe algorytmem AES-256-CBC.
         /// Format wyjściowy: [sól 16B][IV 16B][zaszyfrowane dane...]
         /// Sól i IV dołączane na początku umożliwiają deszyfrowanie
         /// bez konieczności przechowywania ich osobno.
-        /// </summary>
-        /// <param name="plainText">Tekst jawny do zaszyfrowania.</param>
-        /// <param name="masterPassword">Hasło główne użytkownika.</param>
-        /// <returns>Zaszyfrowane dane jako tablica bajtów.</returns>
         public byte[] Encrypt(string plainText, string masterPassword)
         {
             if (string.IsNullOrEmpty(plainText))
@@ -65,17 +58,6 @@ namespace Hafcium.Services
 
             return result;
         }
-
-        /// <summary>
-        /// Deszyfruje dane zaszyfrowane metodą <see cref="Encrypt"/>.
-        /// Odczytuje sól i IV z początku tablicy, derywuje klucz i deszyfruje resztę.
-        /// </summary>
-        /// <param name="encryptedData">Zaszyfrowane dane (sól + IV + szyfrogram).</param>
-        /// <param name="masterPassword">Hasło główne użytkownika.</param>
-        /// <returns>Odszyfrowany tekst jawny.</returns>
-        /// <exception cref="CryptographicException">
-        /// Rzucany gdy hasło jest nieprawidłowe lub dane zostały uszkodzone.
-        /// </exception>
         public string Decrypt(byte[] encryptedData, string masterPassword)
         {
             if (encryptedData == null || encryptedData.Length < SaltSize + IvSize + 1)
