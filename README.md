@@ -46,8 +46,8 @@ Nazwa „Hafcium" nawiązuje do pierwiastka chemicznego **Hf (Hafn)** — twarde
 | 8 | **Usuwanie konta** | Przycisk 🗑 z dialogiem potwierdzenia — zabezpieczenie przed przypadkowym usunięciem. |
 | 9 | **Szyfrowanie AES-256-CBC** | Cała baza danych szyfrowana algorytmem AES-256 z kluczem derywowanym z hasła głównego przez PBKDF2 (100 000 iteracji, SHA-256). |
 | 10 | **Automatyczny zapis/odczyt** | Dane zapisywane do `passwords.dat` przy każdej zmianie. Automatyczne wczytywanie przy starcie. Zapis atomowy (plik tymczasowy + zamiana). |
-| 11 | **Wskaźnik siły hasła** *(bonus)* | Wizualny ProgressBar z oceną siły hasła (entropia bitowa + analiza różnorodności znaków). |
-| 12 | **Hasło główne z logowaniem** *(bonus)* | Ekran logowania przy starcie — tworzenie hasła głównego lub odblokowywanie istniejącej bazy. |
+| 11 | **Wskaźnik siły hasła** | Wizualny ProgressBar z oceną siły hasła (entropia bitowa + analiza różnorodności znaków). |
+| 12 | **Hasło główne z logowaniem** | Ekran logowania przy starcie — tworzenie hasła głównego lub odblokowywanie istniejącej bazy. |
 
 ---
 
