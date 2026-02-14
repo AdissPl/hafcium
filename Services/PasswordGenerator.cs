@@ -3,12 +3,10 @@ using System.Text;
 
 namespace Hafcium.Services
 {
-    /// <summary>
     /// Odpowiada wyłącznie za generowanie haseł (zasada SRP).
     /// Używa kryptograficznie bezpiecznego generatora liczb losowych
     /// (<see cref="RandomNumberGenerator"/>) zamiast <see cref="Random"/>,
     /// co eliminuje przewidywalność sekwencji.
-    /// </summary>
     public class PasswordGenerator
     {
         // ── Stałe zestawy znaków ──────────────────────────────────────
@@ -17,20 +15,15 @@ namespace Hafcium.Services
         private const string DigitChars      = "0123456789";
         private const string SpecialChars    = "!@#$%^&*()-_=+[]{}|;:',.<>?/~`";
 
-        /// <summary>
         /// Generuje hasło o zadanej długości z wybranych zestawów znaków.
         /// Gwarantuje, że co najmniej jeden znak z każdego wybranego zestawu
         /// będzie obecny w wygenerowanym haśle (wymóg wielu polityk bezpieczeństwa).
-        /// </summary>
-        /// <param name="length">Długość hasła (minimum 4).</param>
-        /// <param name="useLowercase">Czy uwzględnić małe litery.</param>
-        /// <param name="useUppercase">Czy uwzględnić wielkie litery.</param>
-        /// <param name="useDigits">Czy uwzględnić cyfry.</param>
-        /// <param name="useSpecial">Czy uwzględnić znaki specjalne.</param>
-        /// <returns>Wygenerowane hasło jako <see cref="string"/>.</returns>
-        /// <exception cref="ArgumentException">
-        /// Rzucany gdy długość &lt; 4 lub nie wybrano żadnego zestawu znaków.
-        /// </exception>
+        /// Długość hasła (minimum 4).
+        /// Czy uwzględnić małe litery.
+        /// Czy uwzględnić wielkie litery.
+        /// Czy uwzględnić cyfry.
+        /// Czy uwzględnić znaki specjalne.<
+        /// Wygenerowane hasło jako <see cref="string"/>.
         public string Generate(int length, bool useLowercase, bool useUppercase,
                                bool useDigits, bool useSpecial)
         {
@@ -76,11 +69,9 @@ namespace Hafcium.Services
             return new string(passwordChars);
         }
 
-        /// <summary>
         /// Oblicza przybliżoną entropię hasła w bitach.
         /// Entropia = log2(rozmiar_puli ^ długość).
         /// Wynik służy do wizualnego wskaźnika siły hasła w UI.
-        /// </summary>
         public double CalculateEntropy(int length, bool lower, bool upper, bool digits, bool special)
         {
             int poolSize = 0;
@@ -92,10 +83,8 @@ namespace Hafcium.Services
             return poolSize > 0 ? length * Math.Log2(poolSize) : 0;
         }
 
-        /// <summary>
         /// Algorytm tasowania Fisher-Yates z kryptograficznie bezpiecznym RNG.
         /// Zapewnia równomierny rozkład permutacji.
-        /// </summary>
         private static void Shuffle(char[] array)
         {
             for (int i = array.Length - 1; i > 0; i--)
