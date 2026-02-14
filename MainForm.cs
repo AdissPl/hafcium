@@ -4,12 +4,10 @@ using Hafcium.Services;
 
 namespace Hafcium
 {
-
     /// Główne okno aplikacji Hafcium. Łączy wszystkie serwisy (kompozycja)
     /// i obsługuje interakcje użytkownika. Każda operacja biznesowa delegowana
     /// jest do wyspecjalizowanego serwisu (SRP), a formularz odpowiada
     /// wyłącznie za prezentację i obsługę zdarzeń (wzorzec 'thin controller').
-
     public class MainForm : Form
     {
         // ════════════════════════════════════════════════════════════════
@@ -61,9 +59,9 @@ namespace Hafcium
         // ════════════════════════════════════════════════════════════════
         //  KONSTRUKTOR
         // ════════════════════════════════════════════════════════════════
+
         /// Inicjalizuje formularz, tworzy instancje serwisów (Dependency Injection
         /// przez konstruktor) i ładuje dane z zaszyfrowanego pliku.
-
         public MainForm(string masterPassword)
         {
             _masterPassword    = masterPassword;
@@ -78,9 +76,9 @@ namespace Hafcium
         // ════════════════════════════════════════════════════════════════
         //  INICJALIZACJA UI
         // ════════════════════════════════════════════════════════════════
+
         /// Buduje cały interfejs użytkownika programowo (bez Designera).
         /// Podział na sekcje: generator haseł | dodawanie konta | tabela kont.
-
         private void InitializeUI()
         {
             // ── Konfiguracja okna głównego ─────────────────────────────
@@ -418,9 +416,9 @@ namespace Hafcium
         // ════════════════════════════════════════════════════════════════
         //  OBSŁUGA ZDARZEŃ
         // ════════════════════════════════════════════════════════════════
+
         /// Funkcjonalność 1: Generowanie hasła z wybranych zestawów znaków.
         /// Deleguje logikę do PasswordGenerator (SRP).
-
         private void OnGenerateClick(object? sender, EventArgs e)
         {
             try
@@ -534,7 +532,9 @@ namespace Hafcium
             ShowInfo($"Hasło do '{_accounts[originalIndex].ServiceName}' zostało skopiowane.");
         }
 
+        /// <summary>
         /// Funkcjonalność 7: Wyszukiwarka na żywo — filtrowanie po nazwie serwisu.
+        /// </summary>
         private void OnSearchTextChanged(object? sender, EventArgs e)
         {
             RefreshGrid();
@@ -572,9 +572,9 @@ namespace Hafcium
         // ════════════════════════════════════════════════════════════════
         //  METODY POMOCNICZE
         // ════════════════════════════════════════════════════════════════
+
         /// Funkcjonalność 4 + 5: Odświeżanie tabeli z uwzględnieniem
         /// filtra wyszukiwania i ukrywania haseł.
-
         private void RefreshGrid()
         {
             _gridAccounts.Rows.Clear();
@@ -632,11 +632,14 @@ namespace Hafcium
                 RefreshGrid();
                 SetStatus($"Wczytano {_accounts.Count} kont z bazy danych.");
             }
-            catch (InvalidOperationException ex)
+            catch (InvalidOperationException)
             {
-                ShowError(ex.Message);
-                // Jeśli hasło nieprawidłowe — zamykamy aplikację
-                Application.Exit();
+                // Hasło zostało zweryfikowane w Program.cs — ten wyjątek
+                // nie powinien wystąpić. Jeśli jednak plik uległ uszkodzeniu
+                // w trakcie działania, nie nadpisujemy danych.
+                ShowError("Nie udało się odczytać bazy danych.\nDane nie zostały nadpisane.");
+                _accounts = new List<Models.AccountEntry>();
+                RefreshGrid();
             }
         }
 
@@ -655,7 +658,7 @@ namespace Hafcium
         }
 
         /// Aktualizuje wskaźnik siły na podstawie wygenerowanego hasła.
-        /// Funkcjonalność dodatkowa — wizualny feedback.
+        /// Funkcjonalność dodatkowa 'od siebie' — wizualny feedback.
         private void UpdateStrengthFromPassword(string password)
         {
             var strength = PasswordStrengthAnalyzer.Analyze(password);
@@ -665,7 +668,7 @@ namespace Hafcium
         }
 
         // ════════════════════════════════════════════════════════════════
-        //  FABRYKI KONTROLEK
+        //  FABRYKI KONTROLEK — DRY (Don't Repeat Yourself)
         // ════════════════════════════════════════════════════════════════
 
         private Label CreateSectionLabel(string text, int y) => new()
