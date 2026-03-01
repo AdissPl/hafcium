@@ -63,7 +63,7 @@ Dwa pliki `.cs` — zgodnie z wymaganiami.
 Potrzebny [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) i Windows 10/11.
 
 ```bash
-git clone https://github.com/[login]/Hafcium.git
+git clone https://github.com/AdissPl/hafcium.git
 cd Hafcium
 dotnet run
 ```
